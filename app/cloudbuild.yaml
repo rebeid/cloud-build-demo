@@ -36,5 +36,4 @@ steps:
 
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
-  machineType: 'E2_MEDIUM'
   logging: CLOUD_LOGGING_ONLY
