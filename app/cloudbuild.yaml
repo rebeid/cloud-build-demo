@@ -20,7 +20,7 @@ steps:
            'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/myimage']
     env:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1'
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
   # Create firewall rule to open port 8090
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
