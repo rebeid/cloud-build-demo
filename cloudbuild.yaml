@@ -9,7 +9,7 @@ steps:
   # Run unit test
   - name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
     entrypoint: python
-    args: ["test.py"]
+    args: ['test.py', '-v']
     dir: 'app'
 
   # Push container image to Artifact Registry
