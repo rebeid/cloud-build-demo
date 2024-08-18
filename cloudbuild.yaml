@@ -26,15 +26,6 @@ steps:
       - 'CLOUDSDK_COMPUTE_REGION=us-central1'
       - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
-  # Make VM accessible on port 8090
-  #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  #  entrypoint: 'gcloud'
-  #  args: ['compute', 'firewall-rules', 'create', 'allow-8090',
-  #         '--action', 'allow',
-  #         '--rules', 'tcp:8090',
-  #         '--target-tags', 'allow-8090',
-  #        ]
-
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
   logging: CLOUD_LOGGING_ONLY
