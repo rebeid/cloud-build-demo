@@ -1,11 +1,10 @@
 # cloud-build-demo
 
-A simple build pipeline (build, push and deploy an app to a new VM) to be executed by Cloud Build
+A simple build pipeline for Cloud Build to execute in response to my GitHub repo changes (See [terraform-demo](https://github.com/rebeid/terraform-demo) for automated Cloud Build trigger setup)
 
-![cloud-build-screenshot](https://github.com/user-attachments/assets/0b0c1894-7639-4474-98bf-c4700f7d32b5)
-
-
-![vm-screenshot](https://github.com/user-attachments/assets/0129e404-9f37-4177-b5b8-3230a8cc5311)
+<img width="1728" alt="cloudbuild-history-screenshot" src="https://github.com/user-attachments/assets/935bf70b-ed50-41ab-8cfd-eb5c78d932ad">
 
 
-![app-screenshot](https://github.com/user-attachments/assets/ef12a74c-e34a-420d-88ca-0e48ee321ad0)
+It builds, pushes (to Artifact Registry) and deploys a sample web app, which listens on port 8090, on a new VM instance.
+
+<img width="800" alt="app-screenshot" src="https://github.com/user-attachments/assets/661a5f66-263c-47f9-a866-1c9f4e7835cf">
