@@ -1,18 +1,24 @@
 steps:
-  # Build app
+  # Build container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 
            'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
            './app'
           ]
 
-  # Push app
+  # Run unit test
+  - name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
+    entrypoint: python
+    args: ['test.py', '-v']
+    dir: 'app'
+
+  # Push container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 
            'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
           ]
 
-  # Provision VM and deploy app
+  # Create VM instance and deploy container image
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     timeout: 240s
