@@ -1,36 +1,36 @@
 steps:
-  # Build container image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 
-           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
-           './app'
-          ]
+- id: 'Build container'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t',
+          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
+          './app'
+        ]
 
-  # Run unit test
-  - name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
-    entrypoint: python
-    args: ['test.py', '-v']
-    dir: 'app'
+- id: 'Run unit test'
+  name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
+  entrypoint: python
+  args: ['test.py', '-v']
+  dir: 'app'
 
-  # Push container image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 
-           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
-          ]
+- id: 'Push container to Artifact Registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push',
+          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
+        ]
 
-  # Create VM instance and deploy container image
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
-    timeout: 240s
-    args: ['compute', 'instances', 'create-with-container', 'vm-${SHORT_SHA}',
-           '--container-image',
-           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
-           '--machine-type', 'f1-micro',
-           '--tags', 'allow-8090',
-          ]
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
-      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+- id: 'Deploy container to a new GCE instance'
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  timeout: 240s
+  args: ['compute', 'instances', 'create-with-container', 'vm-${SHORT_SHA}',
+          '--container-image',
+          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
+          '--machine-type', 'f1-micro',
+          '--tags', 'allow-8090',
+        ]
+  env:
+    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
