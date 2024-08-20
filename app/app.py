@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/say/<something>')
-def say_something(something: str):
+def say_something(something: str) -> str:
     return f"<h1>\\(^o^)/ {something}!</h1>"
 
 
