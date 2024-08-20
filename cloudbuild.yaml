@@ -7,6 +7,11 @@ steps:
           './app'
         ]
 
+- id: 'Run linter'
+  name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
+  entrypoint: python
+  args: ['-m', 'flake8', '.']
+
 - id: 'Run unit test'
   name: 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
   entrypoint: python
@@ -22,7 +27,7 @@ steps:
 #- id: 'Deploy app' # to new GCE instance
 #  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #  entrypoint: 'gcloud'
-#  timeout: 240s
+#  timeout: 300s
 #  args: ['compute', 'instances', 'create-with-container', 'vm-${SHORT_SHA}',
 #          '--container-image',
 #          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
@@ -33,15 +38,15 @@ steps:
 #    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
 #    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
-- id: 'Create new release' # GKE
+- id: 'Create release' # GKE
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
-  timeout: 240s
   args: ['deploy', 'releases', 'create', 'release-${SHORT_SHA}',
           '--delivery-pipeline', 'delivery-pipeline',
           '--region', 'us-central1',
           '--skaffold-file', 'skaffold.yaml',
         ]
+  timeout: 300s
 
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
