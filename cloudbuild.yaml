@@ -36,7 +36,7 @@ steps:
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   timeout: 240s
-  args: ['delpoy', 'releases', 'create', 'release-${SHORT_SHA}',
+  args: ['deploy', 'releases', 'create', 'release-${SHORT_SHA}',
           '--delivery-pipeline', 'delivery-pipeline',
           '--skaffold-file', 'skaffold.yaml',
         ]
