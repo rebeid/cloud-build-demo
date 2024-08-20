@@ -1,8 +1,9 @@
 steps:
 - id: 'Build app'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t',
-          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
+  args: ['build',
+          '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
+          '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:latest',
           './app'
         ]
 
@@ -32,7 +33,7 @@ steps:
 #    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
 #    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
-- id: 'Deploy app' # to GKE dev cluster
+- id: 'Create new release' # GKE
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   timeout: 240s
