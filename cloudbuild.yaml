@@ -1,5 +1,5 @@
 steps:
-- id: 'Build container'
+- id: 'Build app'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t',
           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
@@ -12,21 +12,33 @@ steps:
   args: ['test.py', '-v']
   dir: 'app'
 
-- id: 'Push container to Artifact Registry'
+- id: 'Push app'
   name: 'gcr.io/cloud-builders/docker'
   args: ['push',
           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}'
         ]
 
-- id: 'Deploy container to a new GCE instance'
+#- id: 'Deploy app' # to new GCE instance
+#  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#  entrypoint: 'gcloud'
+#  timeout: 240s
+#  args: ['compute', 'instances', 'create-with-container', 'vm-${SHORT_SHA}',
+#          '--container-image',
+#          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
+#          '--machine-type', 'f1-micro',
+#          '--tags', 'allow-8090',
+#        ]
+#  env:
+#    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+#    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+
+- id: 'Deploy app' # to GKE dev cluster
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   timeout: 240s
-  args: ['compute', 'instances', 'create-with-container', 'vm-${SHORT_SHA}',
-          '--container-image',
-          'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app:${SHORT_SHA}',
-          '--machine-type', 'f1-micro',
-          '--tags', 'allow-8090',
+  args: ['delpoy', 'releases', 'create', 'release-${SHORT_SHA}',
+          '--delivery-pipeline', 'delivery-pipeline',
+          '--skaffold-file', 'skaffold.yaml',
         ]
   env:
     - 'CLOUDSDK_COMPUTE_REGION=us-central1'
@@ -35,3 +47,5 @@ steps:
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
   logging: CLOUD_LOGGING_ONLY
+timeout:
+  3600s
