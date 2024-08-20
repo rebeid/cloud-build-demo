@@ -38,11 +38,12 @@ steps:
   timeout: 240s
   args: ['deploy', 'releases', 'create', 'release-${SHORT_SHA}',
           '--delivery-pipeline', 'delivery-pipeline',
+          '--region', 'us-central1',
           '--skaffold-file', 'skaffold.yaml',
         ]
-  env:
-    - 'CLOUDSDK_COMPUTE_REGION=us-central1'
-    - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  #env:
+  #  - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+  #  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
 
 serviceAccount: '${SERVICE_ACCOUNT}'
 options:
