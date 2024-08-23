@@ -24,7 +24,7 @@ steps:
           'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-app'
         ]
 
-#- id: 'Deploy app' # to new GCE instance
+#- id: 'Deploy app to new GCE instance'
 #  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #  entrypoint: 'gcloud'
 #  timeout: 300s
@@ -52,4 +52,4 @@ serviceAccount: '${SERVICE_ACCOUNT}'
 options:
   logging: CLOUD_LOGGING_ONLY
 timeout:
-  3600s
+  300s
