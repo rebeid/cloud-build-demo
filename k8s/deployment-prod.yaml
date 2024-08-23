@@ -9,7 +9,8 @@ spec:
       app: my-app
   template:
     metadata:
-      app: my-app
+      labels:
+        app: my-app
     spec:
       containers:
       - name: my-app
