@@ -42,7 +42,7 @@ steps:
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args: ['deploy', 'releases', 'create', 'release-${SHORT_SHA}',
-          '--delivery-pipeline', 'delivery-pipeline',
+          '--delivery-pipeline', 'cd-pipeline',
           '--region', 'us-central1',
           '--skaffold-file', 'skaffold.yaml',
         ]
