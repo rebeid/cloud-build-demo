@@ -8,12 +8,12 @@ profiles:
 - name: dev
   manifests:
     rawYaml:
-      - k8s/deployment-dev.yaml
+      - k8s/dev.yaml
 - name: stage
   manifests:
     rawYaml:
-      - k8s/deployment-stage.yaml
+      - k8s/stage.yaml
 - name: prod
   manifests:
     rawYaml:
-      - k8s/deployment-prod.yaml
+      - k8s/prod.yaml
