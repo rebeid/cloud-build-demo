@@ -2,14 +2,6 @@ apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: my-app
-#build:
-#  artifacts:
-#    - image: us-central1-docker.pkg.dev/perfect-victor-432019-p3/my-docker-repo/my-app
-#      context: app
-#      docker:
-#        dockerfile: Dockerfile
-#  googleCloudBuild:
-#    projectId: ${PROJECT_ID}
 manifests:
   rawYaml:
   - k8s/base
