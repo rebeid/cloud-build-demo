@@ -5,18 +5,19 @@ metadata:
 profiles:
 - name: dev
   deploy:
-    kustomize:
-      paths:
-      - k8s/overlays/dev
+    manifests:
+      kustomize:
+        paths:
+        - k8s/overlays/dev
 - name: stage
   deploy:
-    kustomize:
-      paths:
-      - k8s/overlays/stage
+    manifests:
+      kustomize:
+        paths:
+        - k8s/overlays/stage
 - name: prod
   deploy:
-    kustomize:
-      paths:
-      - k8s/overlays/prod
-deploy:
-  kubectl: {}
+    manifests:
+      kustomize:
+        paths:
+        - k8s/overlays/prod
