@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: us-central1-docker.pkg.dev/perfect-victor-432019-p3/my-docker-repo/my-app:latest
+        image: us-central1-docker.pkg.dev/perfect-victor-432019-p3/my-docker-repo/my-app
         ports:
         - containerPort: 8090
         env:
