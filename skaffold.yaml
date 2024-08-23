@@ -1,28 +1,37 @@
-apiVersion: skaffold/v4beta11
+apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: my-app
-manifests:
+build:
+  artifacts:
+    - image: us-central1-docker.pkg.dev/perfect-victor-432019-p3/my-docker-repo/my-app
+      context: app
+      docker:
+        dockerfile: Dockerfile
+  googleCloudBuild:
+    projectId: ${PROJECT_ID}
+#manifests:
+#  kustomize:
+#    paths:
+#    - k8s/base
+deploy:
+  kubectl: {}
   kustomize:
     paths:
     - k8s/base
-deploy:
-  kubectl: {}
-  logs:
-    prefix: container
 profiles:
 - name: dev
-  deploy:
+  manifests:
     kustomize:
       paths:
       - k8s/overlays/dev
-- name: stage
-  deploy:
-    kustomize:
-      paths:
-      - k8s/overlays/stage
 - name: prod
-  deploy:
+  manifests:
     kustomize:
       paths:
       - k8s/overlays/prod
+- name: stage
+  manifests:
+    kustomize:
+      paths:
+      - k8s/overlays/stage
