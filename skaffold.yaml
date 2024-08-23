@@ -2,25 +2,23 @@ apiVersion: skaffold/v4beta10
 kind: Config
 metadata:
   name: my-app
+deploy:
+  kustomize:
+    paths:
+    - k8s/base
 profiles:
 - name: dev
   deploy:
-    kubectl:
-      manifests:
-        kustomize:
-          paths:
-          - k8s/overlays/dev
+    kustomize:
+      paths:
+      - k8s/overlays/dev
 - name: stage
   deploy:
-    kubectl:
-      manifests:
-        kustomize:
-          paths:
-          - k8s/overlays/stage
+    kustomize:
+      paths:
+      - k8s/overlays/stage
 - name: prod
   deploy:
-    kubectl: 
-      manifests:
-        kustomize:
-          paths:
-          - k8s/overlays/prod
+    kustomize: 
+      paths: 
+      - k8s/overlays/prod
