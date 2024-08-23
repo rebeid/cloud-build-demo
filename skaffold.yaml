@@ -10,15 +10,15 @@ build:
         dockerfile: Dockerfile
   googleCloudBuild:
     projectId: ${PROJECT_ID}
+manifests:
+  rawYaml:
+  - k8s/base
 #manifests:
 #  kustomize:
 #    paths:
 #    - k8s/base
 deploy:
   kubectl: {}
-  kustomize:
-    paths:
-    - k8s/base
 profiles:
 - name: dev
   manifests:
