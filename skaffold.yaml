@@ -9,11 +9,11 @@ profiles:
   manifests:
     rawYaml:
       - k8s/deployment-dev.yaml
-- name: prod
+- name: stage
   manifests:
     rawYaml:
       - k8s/deployment-stage.yaml
-- name: stage
+- name: prod
   manifests:
     rawYaml:
       - k8s/deployment-prod.yaml
