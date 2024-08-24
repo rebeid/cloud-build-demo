@@ -18,6 +18,10 @@ spec:
         ports:
         - containerPort: 8090
         env:
+        - name: APP_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         - name: TARGET
           value: dev
 ---

@@ -5,9 +5,10 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def get_release_version() -> str:
-    version = os.environ.get('RELEASE', 'undefined')
-    return f"Accessing the {version} of the app\n"
+def get_info() -> str:
+    app = os.environ.get('APP_NAME')
+    target = os.environ.get('TARGET')
+    return f"Accessing {app} in {target} environment\n"
 
 
 @app.route('/say/<something>')
