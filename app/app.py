@@ -8,7 +8,7 @@ app = Flask(__name__)
 def get_info() -> str:
     app = os.environ.get('APP_NAME')
     target = os.environ.get('TARGET')
-    return f"Accessing {app} in {target} environment\n"
+    return f"This is {app} in {target} environment\n"
 
 
 @app.route('/say/<something>')
