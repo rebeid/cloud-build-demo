@@ -17,6 +17,13 @@ spec:
       containers:
       - name: my-app
         image: us-central1-docker.pkg.dev/perfect-victor-432019-p3/my-docker-repo/my-app
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "0.1"
+          limits:
+            memory: "64Mi"
+            cpu: "0.2"
         ports:
         - containerPort: 8090
         env:
